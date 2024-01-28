@@ -1,0 +1,6 @@
+ Django==5.0.1
+ django-debug-toolbar==4.2.0
+ pre-commit==3.6.0
+ djangorestframework==3.14.0
+ markdown==3.5.1   # Markdown support for the browsable API
+ psycopg2-binary==2.9.9

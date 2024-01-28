@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+    apex-test:
+      build: .
+      container_name: apex-test
+      command: python manage.py runserver 0.0.0.0:8000
+      volumes:
+        - .:/app
+      ports:
+        - "127.0.0.1:8000:8000"
+      env_file:
+        - .env
+      depends_on:
+        - db
+    db:
+      container_name: apex-test-postgresql
+      image: postgres:15-alpine
+      volumes:
+        - postgres_data:/var/lib/postgresql/data/
+      environment:
+        - POSTGRES_USER=apex-test
+        - POSTGRES_PASSWORD=apex-test
+        - POSTGRES_DB=apex-test
+
+volumes:
+  postgres_data:
