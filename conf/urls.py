@@ -16,12 +16,21 @@ Including another URLconf
 """
 
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, include, re_path
 
 from conf import settings
+from pilotlog import urls
 
-urlpatterns = [
-    # path('admin/', admin.site.urls),
+urls = [
+    path("", include((urls, "pilotlog"), namespace="pilotlog")),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+
+    dj_toolbar = [re_path(r"^__debug__/", include(debug_toolbar.urls))]
+    urlpatterns = dj_toolbar + urls
+else:
+    urlpatterns = urls
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
